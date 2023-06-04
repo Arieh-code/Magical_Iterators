@@ -6,9 +6,8 @@
 using namespace ariel;
 
    MagicalContainer::MagicalContainer() : elements_vector(std::vector<int>{}) {
-    // Any additional initialization code or operations can be added here
 }
-    void MagicalContainer::assignd(bool b)
+    void MagicalContainer::assignedTo(bool b)
     {
         
     }
@@ -26,25 +25,24 @@ using namespace ariel;
 
     size_t MagicalContainer::size() const
     {
-        return elements_vector.size();
+        return 0;
     }
 
-    // ------------------------------------------------AscendingIterator functions--------------------------------------------------
     // Constructors
     ariel::MagicalContainer::AscendingIterator::AscendingIterator()
-        : iterator_container(*(new MagicalContainer())), currentIndex(0) {}
+        : iterator_container(), currentIndex(0) {}
 
     MagicalContainer::AscendingIterator::AscendingIterator(MagicalContainer &container)
-        : iterator_container(container), currentIndex(0)
+        : iterator_container(), currentIndex(0)
     {
         sortAscending();
     }
 
     MagicalContainer::AscendingIterator::AscendingIterator(MagicalContainer &container, size_t currentIndex)
-        : iterator_container(container), currentIndex(currentIndex) {}
+        : iterator_container(), currentIndex() {}
 
     MagicalContainer::AscendingIterator::AscendingIterator(const AscendingIterator &other)
-        : iterator_container(other.iterator_container), currentIndex(other.currentIndex) {}
+        : iterator_container(), currentIndex() {}
 
     // Destructor
     MagicalContainer::AscendingIterator::~AscendingIterator() {}
@@ -100,7 +98,7 @@ using namespace ariel;
    
     // Constructors
     MagicalContainer::SideCrossIterator::SideCrossIterator()
-        : iterator_container(*(new MagicalContainer())), startIndex(0), endIndex(0), isFront(true) {}
+        : iterator_container(*(new MagicalContainer())), startIndex(0), endIndex(0), isAtFront(true) {}
 
   MagicalContainer::SideCrossIterator::SideCrossIterator(MagicalContainer &container)
     : iterator_container(*new MagicalContainer())
@@ -113,11 +111,10 @@ using namespace ariel;
         : iterator_container(other.iterator_container),
           startIndex(other.startIndex),
           endIndex(other.endIndex),
-          isFront(other.isFront) {}
+          isAtFront(other.isAtFront) {}
     // Destructor
     MagicalContainer::SideCrossIterator::~SideCrossIterator() {}
 
-    // This function takes the container of the iterator and arrange it's element by the proper order
     void MagicalContainer::SideCrossIterator::arrangeSideCross(MagicalContainer &container)
     {
        
@@ -129,7 +126,7 @@ using namespace ariel;
         return *this;
     }
     MagicalContainer::SideCrossIterator::SideCrossIterator(MagicalContainer &container, size_t startIndex, size_t endIndex, bool isFront)
-        : iterator_container(container), startIndex(startIndex), endIndex(endIndex), isFront(isFront) {}
+        : iterator_container(container), startIndex(startIndex), endIndex(endIndex), isAtFront(isFront) {}
 
     int MagicalContainer::SideCrossIterator::operator*() const
     {

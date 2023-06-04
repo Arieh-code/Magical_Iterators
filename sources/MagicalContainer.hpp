@@ -1,5 +1,4 @@
-#ifndef MAGICALCONTAINER_HPP
-#define MAGICALCONTAINER_HPP
+#pragma once
 
 #include <vector>
 namespace ariel
@@ -8,14 +7,14 @@ namespace ariel
     {
     private:
         std::vector<int> elements_vector;
-        bool assignd_to = false;
+        bool assigned = false;
 
     public:
     MagicalContainer ();
         void addElement(int element);
         void removeElement(int element);
         size_t size() const;
-        void assignd(bool something);
+        void assignedTo(bool check);
         
 
         class AscendingIterator;
@@ -54,7 +53,7 @@ namespace ariel
         size_t currentIndex;
         size_t startIndex;
         size_t endIndex;
-        bool isFront;
+        bool isAtFront;
 
     public:
         SideCrossIterator();
@@ -100,4 +99,3 @@ namespace ariel
         PrimeIterator end();
     };
 }
-#endif // MAGICALCONTAINER_HPP
