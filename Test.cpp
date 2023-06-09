@@ -1,5 +1,5 @@
 #include "doctest.h"
-#include "MagicalContainer.hpp"
+#include "sources/MagicalContainer.hpp"
 #include <chrono>
 #include <iostream>
 
