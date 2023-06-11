@@ -120,10 +120,10 @@ namespace ariel
             // destructor
             ~PrimeIterator() = default;
             // Delete move constructor
-            PrimeIterator(PrimeIterator &&) = delete;
+            PrimeIterator(PrimeIterator &&other) noexcept;
 
             // Delete move assignment operator
-            PrimeIterator &operator=(PrimeIterator &&) = delete;
+            PrimeIterator &operator=(PrimeIterator &&other) noexcept;
             // assignment operator
             PrimeIterator &operator=(const PrimeIterator &other);
             // bool operands

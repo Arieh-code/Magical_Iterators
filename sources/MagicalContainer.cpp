@@ -17,7 +17,7 @@ void MagicalContainer::addElement(int number)
     {
         if (isPrime(num))
         {
-            int *ptr = new int(num);
+            int *ptr = &num;
             primeNumberVector.push_back(ptr);
         }
     }
@@ -286,4 +286,83 @@ MagicalContainer::SideCrossIterator &MagicalContainer::SideCrossIterator::operat
     backIndex = other.backIndex;
     AtFront = other.AtFront;
     return *this;
+}
+
+// ************************************* PrimeIterator ***************************
+// default constructor
+MagicalContainer::PrimeIterator::PrimeIterator(MagicalContainer &container)
+    : container(container), index(0)
+{
+}
+
+// copy constructor
+
+MagicalContainer::PrimeIterator::PrimeIterator(const PrimeIterator &other)
+    : container(other.container), index(other.index)
+{
+}
+
+// assignment operator
+MagicalContainer::PrimeIterator &MagicalContainer::PrimeIterator::operator=(const PrimeIterator &other)
+{
+    if (&container != &other.container)
+    {
+        throw std::runtime_error("Can't assign to a different Iterator");
+    }
+    container = other.container;
+    index = other.index;
+    return *this;
+}
+
+// boolean operator
+
+bool MagicalContainer::PrimeIterator::operator==(const PrimeIterator &other) const
+{
+    return (index == other.index);
+}
+
+bool MagicalContainer::PrimeIterator::operator!=(const PrimeIterator &other) const
+{
+    return !(*this == other);
+}
+
+bool MagicalContainer::PrimeIterator::operator<(const PrimeIterator &other) const
+{
+    return (index < other.index);
+}
+
+bool MagicalContainer::PrimeIterator::operator>(const PrimeIterator &other) const
+{
+    return (!(index < other.index) && (index != other.index));
+}
+
+// dereference operator
+int MagicalContainer::PrimeIterator::operator*() const
+{
+    return *container.primeNumberVector[index];
+}
+
+MagicalContainer::PrimeIterator &MagicalContainer::PrimeIterator::operator++()
+{
+    // check if we are in bounds
+    if (index == container.primeNumberVector.size())
+    {
+        throw std::runtime_error("Iterator out of bounds");
+    }
+    ++index;
+    return *this;
+}
+
+MagicalContainer::PrimeIterator MagicalContainer::PrimeIterator::begin()
+{
+    // return a new iterator pointing to the beginning of the container
+    return PrimeIterator(container);
+}
+
+MagicalContainer::PrimeIterator MagicalContainer::PrimeIterator::end()
+{
+    // return a new iterator pointing to the end of the container
+    PrimeIterator it(container);
+    it.index = container.primeNumberVector.size();
+    return it;
 }
