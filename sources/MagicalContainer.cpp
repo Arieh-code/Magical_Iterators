@@ -3,15 +3,15 @@
 using namespace ariel;
 using namespace std;
 
-bool MagicalContainer::in(int number)
+bool MagicalContainer::in(int number) const
 {
     return std::find(elements.begin(), elements.end(), number) != elements.end();
 }
 
-MagicalContainer::addElement(int number)
+void MagicalContainer::addElement(int number)
 {
-    element.push_back(number);
-    std::sort(elements.begin(), elements.end);
+    elements.push_back(number);
+    std::sort(elements.begin(), elements.end());
     primeNumberVector.clear();
     for (int &num : elements)
     {
@@ -39,14 +39,14 @@ bool MagicalContainer::isPrime(int number)
     return true;
 }
 
-MagicalContainer::removeElement(int number)
+void MagicalContainer::removeElement(int number)
 {
-    if (!in(element))
+    if (!in(number))
     {
         throw std::runtime_error("Element not found in container");
     }
     // remove all occurrences of the desired number
-    elements.erase(std::remove(elements.begin(), elements.end(), element), elements.end());
+    elements.erase(std::remove(elements.begin(), elements.end(), number), elements.end());
     // check if the number was prime.
     if (isPrime(number))
     {
