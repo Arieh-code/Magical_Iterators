@@ -40,10 +40,10 @@ namespace ariel
             ~AscendingIterator() = default;
             // assignment operator
             // Delete move constructor
-            AscendingIterator(AscendingIterator &&) = delete;
+            AscendingIterator(AscendingIterator &&ohter) noexcept;
 
             // Delete move assignment operator
-            AscendingIterator &operator=(AscendingIterator &&) = delete;
+            AscendingIterator &operator=(AscendingIterator &&other) noexcept;
             // assignment operator
             AscendingIterator &operator=(const AscendingIterator &other);
 
@@ -82,10 +82,10 @@ namespace ariel
             // destructor
             ~SideCrossIterator() = default;
             // Delete move constructor
-            SideCrossIterator(SideCrossIterator&&) = delete;
+            SideCrossIterator(SideCrossIterator &&) = delete;
 
             // Delete move assignment operator
-            SideCrossIterator& operator=(SideCrossIterator&&) = delete;
+            SideCrossIterator &operator=(SideCrossIterator &&) = delete;
             // assignment operator
             SideCrossIterator &operator=(const SideCrossIterator &other);
             // bool operators
@@ -120,10 +120,10 @@ namespace ariel
             // destructor
             ~PrimeIterator() = default;
             // Delete move constructor
-            PrimeIterator(PrimeIterator&&) = delete;
+            PrimeIterator(PrimeIterator &&) = delete;
 
             // Delete move assignment operator
-            PrimeIterator& operator=(PrimeIterator&&) = delete;
+            PrimeIterator &operator=(PrimeIterator &&) = delete;
             // assignment operator
             PrimeIterator &operator=(const PrimeIterator &other);
             // bool operands
