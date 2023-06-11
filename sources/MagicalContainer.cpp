@@ -205,7 +205,7 @@ bool MagicalContainer::SideCrossIterator::operator!=(const SideCrossIterator &ot
 bool MagicalContainer::SideCrossIterator::operator>(const SideCrossIterator &other) const
 {
     // checking all options of the indexes
-    return ((frontIndex > other.frontIndex && backIndex > other.backIndex) || (frontIndex > other.frontIndex && AtFront) || (AtFront && backIndex > other.backIndex));
+    return ((frontIndex > other.frontIndex && backIndex > other.backIndex) || (frontIndex > other.frontIndex && other.AtFront) || (AtFront && backIndex > other.backIndex));
 }
 
 bool MagicalContainer::SideCrossIterator::operator<(const SideCrossIterator &other) const
