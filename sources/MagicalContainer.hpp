@@ -81,11 +81,11 @@ namespace ariel
             SideCrossIterator(const SideCrossIterator &other);
             // destructor
             ~SideCrossIterator() = default;
-            // Delete move constructor
-            SideCrossIterator(SideCrossIterator &&) = delete;
+            // move constructor
+            SideCrossIterator(SideCrossIterator &&other) noexcept;
 
-            // Delete move assignment operator
-            SideCrossIterator &operator=(SideCrossIterator &&) = delete;
+            // move assignment operator
+            SideCrossIterator &operator=(SideCrossIterator &&other) noexcept;
             // assignment operator
             SideCrossIterator &operator=(const SideCrossIterator &other);
             // bool operators

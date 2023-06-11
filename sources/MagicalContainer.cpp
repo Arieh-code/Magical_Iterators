@@ -162,14 +162,128 @@ MagicalContainer::AscendingIterator &MagicalContainer::AscendingIterator::operat
     return *this;
 }
 
-
 // *********************** SideCross Iterator ***********************
 // default constructor
 MagicalContainer::SideCrossIterator::SideCrossIterator(MagicalContainer &container)
-: container(container), frontIndex(0), backIndex(container.size()-1), AtFront(true)
+    : container(container), frontIndex(0), backIndex(container.size() - 1), AtFront(true)
 {
-
 }
 
 // copy constructor
+MagicalContainer::SideCrossIterator::SideCrossIterator(const SideCrossIterator &other)
+    : container(other.container), frontIndex(other.frontIndex), backIndex(other.backIndex), AtFront(other.AtFront)
+{
+}
 
+MagicalContainer::SideCrossIterator &MagicalContainer::SideCrossIterator::operator=(const SideCrossIterator &other)
+{
+    // check if the iterator are the same type
+    if (&container != &other.container)
+    {
+        throw std::runtime_error("Can't assign to a different iterator");
+    }
+    container = other.container;
+    frontIndex = other.frontIndex;
+    backIndex = other.backIndex;
+    AtFront = other.AtFront;
+
+    return *this;
+}
+
+bool MagicalContainer::SideCrossIterator::operator==(const SideCrossIterator &other) const
+{
+    // check that both front and back indexes are pointing to the same index
+    return frontIndex == other.frontIndex && backIndex == other.backIndex;
+}
+
+bool MagicalContainer::SideCrossIterator::operator!=(const SideCrossIterator &other) const
+{
+    // using the == operator to check that they are not equal
+    return !(*this == other);
+}
+
+bool MagicalContainer::SideCrossIterator::operator>(const SideCrossIterator &other) const
+{
+    // checking all options of the indexes
+    return ((frontIndex > other.frontIndex && backIndex > other.backIndex) || (frontIndex > other.frontIndex && AtFront) || (AtFront && backIndex > other.backIndex));
+}
+
+bool MagicalContainer::SideCrossIterator::operator<(const SideCrossIterator &other) const
+{
+    // using already implemented code check that is isn't bigger and not equal there fore smaller
+    return (!(*this > other) && (*this != other));
+}
+
+int MagicalContainer::SideCrossIterator::operator*() const
+{
+    // if I am in front return the front index else return the back index
+    if (AtFront)
+    {
+        return container.elements[frontIndex];
+    }
+    else
+    {
+        return container.elements[backIndex];
+    }
+}
+
+MagicalContainer::SideCrossIterator &MagicalContainer::SideCrossIterator::operator++()
+{
+    // check both cases of even and odd lengths of container
+    if ((container.size() % 2 == 0 && frontIndex == container.size() / 2 && backIndex == container.size() / 2 - 1) || container.size() % 2 == 1 && frontIndex == container.size() / 2 + 1 && backIndex == container.size() / 2)
+    {
+        throw std::runtime_error("interator is out of bounds");
+    }
+    // if we are in bounds check if we are at front of back.
+    if (AtFront)
+    {
+        ++frontIndex;
+    }
+    else
+    {
+        --backIndex;
+    }
+    // change state of AtFront
+    AtFront = !AtFront;
+    return *this;
+}
+
+MagicalContainer::SideCrossIterator MagicalContainer::SideCrossIterator::begin()
+{
+    // return iterator with container
+    return SideCrossIterator(container);
+}
+
+MagicalContainer::SideCrossIterator MagicalContainer::SideCrossIterator::end()
+{
+    // create new container and set indexes at the end.
+    SideCrossIterator it(container);
+    if (container.size() % 2 == 0)
+    {
+        it.frontIndex = container.size() / 2;
+        it.backIndex = container.size() / 2 - 1;
+    }
+    else
+    {
+        it.frontIndex = container.size() / 2 + 1;
+        it.backIndex = container.size() / 2;
+    }
+    return it;
+}
+
+// implementing move copy to make tidy happy
+MagicalContainer::SideCrossIterator::SideCrossIterator(SideCrossIterator &&other) noexcept
+    : container(other.container), frontIndex(other.frontIndex), backIndex(other.backIndex), AtFront(other.AtFront)
+{
+    other.frontIndex = 0;
+    other.backIndex = 0;
+}
+
+MagicalContainer::SideCrossIterator &MagicalContainer::SideCrossIterator::operator=(SideCrossIterator &&other) noexcept
+{
+    container = other.container;
+    frontIndex = other.frontIndex;
+    backIndex = other.backIndex;
+    AtFront = other.AtFront;
+    return *this;
+}
